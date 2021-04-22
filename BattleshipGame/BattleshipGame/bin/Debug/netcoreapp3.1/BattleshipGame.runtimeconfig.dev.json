@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\Jrleo\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Jrleo\\.nuget\\packages"
+    ]
+  }
+}
