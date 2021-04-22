@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Jrleo\\git\\Projects\\BattleshipGame\\BattleshipGame\\BattleshipGame.csproj",
+      "projectUniqueName": "C:\\Users\\Jrleo\\GitHub Projects\\BattleshipGame\\BattleshipGame\\BattleshipGame\\BattleshipGame.csproj",
       "projectName": "BattleshipGame",
-      "projectPath": "C:\\Users\\Jrleo\\git\\Projects\\BattleshipGame\\BattleshipGame\\BattleshipGame.csproj",
+      "projectPath": "C:\\Users\\Jrleo\\GitHub Projects\\BattleshipGame\\BattleshipGame\\BattleshipGame\\BattleshipGame.csproj",
       "packagesPath": "C:\\Users\\Jrleo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Jrleo\\git\\Projects\\BattleshipGame\\BattleshipGame\\obj\\",
+      "outputPath": "C:\\Users\\Jrleo\\GitHub Projects\\BattleshipGame\\BattleshipGame\\BattleshipGame\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Jrleo\\AppData\\Roaming\\NuGet\\NuGet.Config",
