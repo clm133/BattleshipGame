@@ -17,15 +17,17 @@ namespace BattleshipGame
 
             string[,] userBoard = CreateUserBoard(gridHeight, gridWidth);
 
+            List<Ship> ships = Ship.CreateShips();
+
+            int shipCounter = 0;  //this will keep track of how many ships have been sunk - when it reaches 5, the game is over
+
             bool game = true;
             while (game)
             {
                 Console.Clear();
                 DisplayUserBoard(userBoard, gridHeight, gridWidth);
-
+                
                 List<UserCoordinates> userTarget = GetUserTarget();
-
-                List<Ship> ships = Ship.CreateShips();
 
                 if (cpuBoard[userTarget[0].Row, userTarget[0].Col] != "░░░")  //triggers when a user target is not water, meaning a hit
                 {
@@ -40,35 +42,46 @@ namespace BattleshipGame
                     else if (cpuBoard[userTarget[0].Row, userTarget[0].Col] == " C ") { ships[4].Length--; }
 
                     userBoard[userTarget[0].Row, userTarget[0].Col] = "HIT";
+                    cpuBoard[userTarget[0].Row, userTarget[0].Col] = "░░░";
+      
+                    foreach (var ship in ships)
+                    {
+                        if (ship.Length == 0) 
+                        { 
+                            DisplaySink(ship.Id);
+                            ship.Length--;
+                            shipCounter++;
+                        }
+                    }
+                    if (shipCounter == 5) { game = false; }
+                }
+                else if (cpuBoard[userTarget[0].Row, userTarget[0].Col] == "░░░" && userBoard[userTarget[0].Row, userTarget[0].Col] == " M ")  //if user selects a miss again
+                {
+                    Console.WriteLine("\n");
+                    Console.WriteLine("You already missed here, silly! Try again!".PadLeft(75));
+                    Console.WriteLine("\n\n(Press any key to continue.)");
+                    Console.ReadKey(true);
+                }
+                else if (cpuBoard[userTarget[0].Row, userTarget[0].Col] == "░░░" && userBoard[userTarget[0].Row, userTarget[0].Col] == "HIT")  //if user selects a target they already hit
+                {
+                    Console.WriteLine("\n");
+                    Console.WriteLine("You already hit this ship here. Try again!".PadLeft(75));
+                    Console.WriteLine("\n\n(Press any key to continue.)");
+                    Console.ReadKey(true);
                 }
                 else if (cpuBoard[userTarget[0].Row, userTarget[0].Col] == "░░░")
                 {
-                    Console.WriteLine("Miss!".PadLeft(60));
-                    userBoard[userTarget[0].Row, userTarget[0].Col] = " M ";
-                    Console.WriteLine("\n\n\n(Press any key to continue.)");
+                    Console.WriteLine("\n");
+                    Console.WriteLine("Miss!".PadLeft(55));
+                    Console.WriteLine("\n\n(Press any key to continue.)");
                     Console.ReadKey(true);
-                }
-                else if (cpuBoard[userTarget[0].Row, userTarget[0].Col] == " M ")  //if user selects a miss again
-                {
-                    Console.WriteLine("You already missed here once, silly! Try again!".PadLeft(60));
-                    Console.WriteLine("\n\n\n(Press any key to continue.)");
-                    Console.ReadKey(true);
-                }
-                else if (userBoard[userTarget[0].Row, userTarget[0].Col] == "HIT")  //if user selects a target they already hit
-                {
-                    Console.WriteLine("You already hit this ship here. Try again!".PadLeft(60));
-                    Console.WriteLine("\n\n\n(Press any key to continue.)");
-                    Console.ReadKey(true);
-                }
 
-                int shipCounter = 0;  //this will count how many ships are sunk - when it equals 5, the game is over           
-                foreach (var ship in ships)
-                {
-                    if (ship.Length == 0) { DisplaySink(ship.Id); }
-                    shipCounter++;
+                    userBoard[userTarget[0].Row, userTarget[0].Col] = " M ";
+                    cpuBoard[userTarget[0].Row, userTarget[0].Col] = "░░░";
                 }
-                if (shipCounter == 5) { game = false; DisplayWin(); }
             }
+
+            DisplayWin();
 
             static string[,] CreateGameBoard(int gridHeight, int gridWidth)
             {
@@ -87,6 +100,7 @@ namespace BattleshipGame
 
                 foreach (var ship in ships)
                 {
+                    Console.WriteLine(ship.Name);
                     int startRow = 0;
                     int endRow = 0;
                     int startCol = 0;
@@ -170,7 +184,7 @@ namespace BattleshipGame
 
             static string[,] DisplayUserBoard(string[,] userBoard, int gridHeight, int gridWidth)
             {
-                Console.WriteLine("\n\n\n\n\n\n\n");  //leading whitespace for formatting
+                Console.WriteLine("\n\n\n\n");  //leading whitespace for formatting
 
                 for (int row = 0; row < gridHeight; row++)
                 {
@@ -192,7 +206,7 @@ namespace BattleshipGame
                 bool loop = true;
                 while (loop)
                 {
-                    Console.WriteLine("Enter the coordinates (column, row) of your target (ie. B3) then press 'Enter'.");
+                    Console.WriteLine("Type the coordinates (column, row) of your target (ie. b3) and then press 'Enter'.");
                     userInput = Console.ReadLine().ToUpper();
 
                     if (string.IsNullOrEmpty(userInput)) { Console.WriteLine("\nYou must fire!\n"); continue; } //check if input is empty
@@ -214,7 +228,7 @@ namespace BattleshipGame
 
             static void DisplayHit()
             {
-
+                Console.Clear();
                 Console.WriteLine("\n\n\n\n\n\n");
                 Console.WriteLine("              _.-^^---..,,^^---_".PadLeft(60));
                 Console.WriteLine("          _--                   \"\\__".PadLeft(64));
@@ -245,42 +259,61 @@ namespace BattleshipGame
             }
             static void DisplayWin()
             {
-                Console.WriteLine("");
+                Console.Clear();
+                Console.WriteLine("\n\n\n\n\n\n\n\n");
+                Console.WriteLine("           +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+                Console.WriteLine("           | Y | O | U | | S | U | N | K | | A | L | L | | T | H | E | | S | H | I | P | S | ! |");
+                Console.WriteLine("           +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+                Console.WriteLine("\n\n\n\n\n\n\n\n(Press any key to continue.)");
+                Console.ReadKey(true);
 
-                Console.WriteLine("   :::   :::  ::::::::  :::    :::        :::       :::  ::::::::  ::::    :::          ::: \n  :+:   :+: :+:    :+: :+:    :+:        :+:       :+: :+:    :+: :+:+:   :+:          :+:  \n  +:+ +:+ +:+ +:+ +:+ +:+ +:+ +:+ +:+ +:+ :+:+:+ +:+ +:+\n+#++:   +#+    +:+ +#+    +:+        +#+  +:+  +#+ +#+    +:+ +#+ +:+ +#+          +#+    \n  +#+    +#+    +#+ +#+    +#+        +#+ +#+#+ +#+ +#+    +#+ +#+  +#+#+#          +#+     \n #+#    #+#    #+# #+#    #+#         #+#+# #+#+#  #+#    #+# #+#   #+#+#                   \n###     ########   ########           ###   ###    ########  ###    ####          ###       ");
+                Console.Clear();
+                Console.WriteLine("\n\n\n\n");
+                Console.WriteLine("   :::   :::  ::::::::  :::    :::        :::       :::  ::::::::  ::::    :::          ::: ".PadLeft(20));
+                Console.WriteLine("  :+:   :+: :+:    :+: :+:    :+:        :+:       :+: :+:    :+: :+:+:   :+:          :+:  ".PadLeft(20));
+                Console.WriteLine("  +:+  +:+ +:+    +:+ +:+    +:+        +:+  +:+  +:+ +:+    :+: +:++:+  +:+          +:+   ".PadLeft(20));
+                Console.WriteLine("   +#++:  +#+    +:+ +#+    +:+        +#+  +:+  +#+ +#+    +:+ +#+ +:+ +#+          +#+    ".PadLeft(20));
+                Console.WriteLine("  +#+    +#+    +#+ +#+    +#+        +#+ +#+#+ +#+ +#+    +#+ +#+  +#+#+#          +#+     ".PadLeft(20));
+                Console.WriteLine(" #+#    #+#    #+# #+#    #+#         #+#+# #+#+#  #+#    #+# #+#   #+#+#                   ".PadLeft(20));
+                Console.WriteLine("###     ########   ########           ###   ###    ########  ###    ####          ###       ".PadLeft(20));
+                Console.WriteLine("\n\n\n\n");
             }
             static void DisplaySink(string id)
             {
+                Console.Clear();
+                Console.WriteLine("\n\n\n\n\n\n\n\n\n\n");
                 if (id == " P ")
                 {
-                    Console.WriteLine(" +-+-+-+ +-+-+-+-+ +-+-+-+ +-+-+-+-+-+-+ +-+-+-+-+-+".PadLeft(25));
-                    Console.WriteLine(" | Y | O | U | | S | U | N | K | | T | H | E | | P | A | T | R | O | L | | B | O | A | T | !|".PadLeft(25));
-                    Console.WriteLine(" +-+-+-+ +-+-+-+-+ +-+-+-+ +-+-+-+-+-+-+ +-+-+-+-+-+".PadLeft(25));
+                    Console.WriteLine("        +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+                    Console.WriteLine("        | Y | O | U | | S | U | N | K | | T | H | E | | P | A | T | R | O | L | | B | O | A | T | ! |");
+                    Console.WriteLine("        +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
                 }
                 else if (id == " S ")
                 {
-                    Console.WriteLine(" +-+-+-+ +-+-+-+-+ +-+-+-+ +-+-+-+-+-+-+-+-+-+-+".PadLeft(25));
-                    Console.WriteLine(" | Y | O | U | | S | U | N | K | | T | H | E | | S | U | B | M | A | R | I | N | E | !|".PadLeft(25));
-                    Console.WriteLine(" +-+-+-+ +-+-+-+-+ +-+-+-+ +-+-+-+-+-+-+-+-+-+-+".PadLeft(25));
+                    Console.WriteLine("           +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+                    Console.WriteLine("           | Y | O | U | | S | U | N | K | | T | H | E | | S | U | B | M | A | R | I | N | E | ! |");
+                    Console.WriteLine("           +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
                 }
                 else if (id == " D ")
                 {
-                    Console.WriteLine(" +-+-+-+ +-+-+-+-+ +-+-+-+ +-+-+-+-+-+-+-+-+-+-+".PadLeft(25));
-                    Console.WriteLine(" | Y | O | U | | S | U | N | K | | T | H | E | | D | E | S | T | R | O | Y | E | R | !|".PadLeft(25));
-                    Console.WriteLine(" +-+-+-+ +-+-+-+-+ +-+-+-+ +-+-+-+-+-+-+-+-+-+-+".PadLeft(25));
+                    Console.WriteLine("           +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+                    Console.WriteLine("           | Y | O | U | | S | U | N | K | | T | H | E | | D | E | S | T | R | O | Y | E | R | ! |");
+                    Console.WriteLine("           +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
                 }
                 else if (id == " B ")
                 {
-                    Console.WriteLine(" +-+-+-+ +-+-+-+-+ +-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+".PadLeft(25));
-                    Console.WriteLine(" | Y | O | U | | S | U | N | K | | T | H | E | | B | A | T | T | L | E | S | H | I | P | !|".PadLeft(25));
-                    Console.WriteLine(" +-+-+-+ +-+-+-+-+ +-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+".PadLeft(25));
+                    Console.WriteLine("          +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+                    Console.WriteLine("          | Y | O | U | | S | U | N | K | | T | H | E | | B | A | T | T | L | E | S | H | I | P | ! |");
+                    Console.WriteLine("          +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
                 }
                 else if (id == " C ")
                 {
-                    Console.WriteLine(" +-+-+-+ +-+-+-+-+ +-+-+-+ +-+-+-+-+-+-+-+-+".PadLeft(25));
-                    Console.WriteLine(" | Y | O | U | | S | U | N | K | | T | H | E | | C | R | U | I | S | E | R | !|".PadLeft(25));
-                    Console.WriteLine(" +-+-+-+ +-+-+-+-+ +-+-+-+ +-+-+-+-+-+-+-+-+".PadLeft(25));
+                    Console.WriteLine("               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
+                    Console.WriteLine("               | Y | O | U | | S | U | N | K | | T | H | E | | C | R | U | I | S | E | R | ! |");
+                    Console.WriteLine("               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
                 }
+                Console.WriteLine("\n\n\n\n\n\n\n(Press any key to continue.)");
+                Console.ReadKey(true);
             }
         }
         public class UserCoordinates
