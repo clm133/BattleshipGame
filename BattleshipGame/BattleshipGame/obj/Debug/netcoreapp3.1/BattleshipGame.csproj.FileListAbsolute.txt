@@ -11,3 +11,16 @@ C:\Users\Jrleo\GitHub Projects\BattleshipGame\BattleshipGame\BattleshipGame\obj\
 C:\Users\Jrleo\GitHub Projects\BattleshipGame\BattleshipGame\BattleshipGame\obj\Debug\netcoreapp3.1\BattleshipGame.dll
 C:\Users\Jrleo\GitHub Projects\BattleshipGame\BattleshipGame\BattleshipGame\obj\Debug\netcoreapp3.1\BattleshipGame.pdb
 C:\Users\Jrleo\GitHub Projects\BattleshipGame\BattleshipGame\BattleshipGame\obj\Debug\netcoreapp3.1\BattleshipGame.genruntimeconfig.cache
+C:\Users\Jrleo\GitHub Projects\BattleshipGame\BattleshipGame\bin\Debug\netcoreapp3.1\BattleshipGame.exe
+C:\Users\Jrleo\GitHub Projects\BattleshipGame\BattleshipGame\bin\Debug\netcoreapp3.1\BattleshipGame.deps.json
+C:\Users\Jrleo\GitHub Projects\BattleshipGame\BattleshipGame\bin\Debug\netcoreapp3.1\BattleshipGame.runtimeconfig.json
+C:\Users\Jrleo\GitHub Projects\BattleshipGame\BattleshipGame\bin\Debug\netcoreapp3.1\BattleshipGame.runtimeconfig.dev.json
+C:\Users\Jrleo\GitHub Projects\BattleshipGame\BattleshipGame\bin\Debug\netcoreapp3.1\BattleshipGame.dll
+C:\Users\Jrleo\GitHub Projects\BattleshipGame\BattleshipGame\bin\Debug\netcoreapp3.1\BattleshipGame.pdb
+C:\Users\Jrleo\GitHub Projects\BattleshipGame\BattleshipGame\obj\Debug\netcoreapp3.1\BattleshipGame.csprojAssemblyReference.cache
+C:\Users\Jrleo\GitHub Projects\BattleshipGame\BattleshipGame\obj\Debug\netcoreapp3.1\BattleshipGame.AssemblyInfoInputs.cache
+C:\Users\Jrleo\GitHub Projects\BattleshipGame\BattleshipGame\obj\Debug\netcoreapp3.1\BattleshipGame.AssemblyInfo.cs
+C:\Users\Jrleo\GitHub Projects\BattleshipGame\BattleshipGame\obj\Debug\netcoreapp3.1\BattleshipGame.csproj.CoreCompileInputs.cache
+C:\Users\Jrleo\GitHub Projects\BattleshipGame\BattleshipGame\obj\Debug\netcoreapp3.1\BattleshipGame.dll
+C:\Users\Jrleo\GitHub Projects\BattleshipGame\BattleshipGame\obj\Debug\netcoreapp3.1\BattleshipGame.pdb
+C:\Users\Jrleo\GitHub Projects\BattleshipGame\BattleshipGame\obj\Debug\netcoreapp3.1\BattleshipGame.genruntimeconfig.cache
