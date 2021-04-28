@@ -154,12 +154,13 @@ public class Game
     //this will keep track of how many ships have been sunk - when it reaches 5, the game is over
     private int shipsDestroyed;
 
-    public Game(int height=10, int width=10)
+    public Game(int height = 10, int width = 10)
     {
-        // A standard Battleship playing field is 10x10
-        // We add one to the height and width to account for labels for the rows and columns on the user board.
+        //a standard Battleship playing field is 10x10, size can be changed here if needed
+
+        //we add one to the height and width to account for labels for the rows and columns on the user board
         gridHeight = height + 1;
-        gridWidth = width + 1;
+        gridWidth = width + 1;    
         SetupGameBoard();
         SetupUserBoard();
         ships = Ship.CreateShips();
@@ -238,7 +239,7 @@ public class Game
             cpuBoard[userTarget.Row, userTarget.Col] = "░░░";
         }
     }
-    void SetupGameBoard()
+    private void SetupGameBoard()
     {
         cpuBoard = new string[gridHeight, gridWidth];  //this creates the computer's board, which is where ships will be stored
 
@@ -315,7 +316,7 @@ public class Game
         }
     }
 
-    void SetupUserBoard()
+    private void SetupUserBoard()
     {
         userBoard = new string[gridHeight, gridWidth];  //this creates the user's board, where the user will announce targets and monitor hits/misses
 
